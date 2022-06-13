@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+group 'com.qirik'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+
+dependencies {
+    implementation "com.github.Minestom:Minestom:${minestom_version}"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.qirik.vanilla.Server'
+    }
+}
