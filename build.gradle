@@ -18,6 +18,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.qirik.vanilla.Server'
+        attributes 'Main-Class': 'com.qirik.Reperial.Server'
     }
 }
