@@ -1,6 +1,11 @@
 plugins {
     id 'java'
-    id "com.github.johnrengelman.shadow" version "7.0.0"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+compileJava {
+    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 group 'com.qirik'
@@ -16,8 +21,16 @@ dependencies {
     implementation "com.github.Minestom:Minestom:${minestom_version}"
 }
 
-jar {
+shadowJar {
     manifest {
         attributes 'Main-Class': 'com.qirik.reperial.Server'
     }
+    archiveBaseName.set("Reperial")
+    archiveClassifier.set("")
+    archiveVersion.set(project.version.toString())
+    mergeServiceFiles()
+}
+
+build {
+    dependsOn(shadowJar)
 }
