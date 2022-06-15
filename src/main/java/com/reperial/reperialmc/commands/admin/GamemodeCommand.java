@@ -1,4 +1,4 @@
-package com.qirik.reperial.commands.admin;
+package com.reperial.reperialmc.commands.admin;
 
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
