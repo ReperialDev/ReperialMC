@@ -1,4 +1,4 @@
-# Reperial
+# ReperialMC
 Reperial is a minecraft server jar using [minestom.](https://github.com/Minestom/Minestom)
 
 # License
