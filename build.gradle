@@ -23,7 +23,7 @@ dependencies {
 
 shadowJar {
     manifest {
-        attributes 'Main-Class': 'com.qirik.reperial.Server'
+        attributes 'Main-Class': 'com.reperial.reperialmc.Server'
     }
     archiveBaseName.set("Reperial")
     archiveClassifier.set("")
