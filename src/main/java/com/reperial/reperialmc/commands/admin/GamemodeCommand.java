@@ -1,5 +1,6 @@
 package com.reperial.reperialmc.commands.admin;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
@@ -13,37 +14,32 @@ import static net.minestom.server.command.builder.arguments.ArgumentType.Entity;
 
 public class GamemodeCommand extends Command {
     public GamemodeCommand() {
-        super("gamemode", "gm");
+        super("gamemode");
 
-        setCondition((sender, string)  -> sender.getPermission("reperial.administrator.gamemode") != null);
+        setDefaultExecutor((sender, context) -> sender.sendMessage("Usage : /gamemode <gamemode>"));
 
-        setDefaultExecutor((sender, context) -> {
-            if (sender instanceof Player player) player.sendMessage("Usage : /gamemode <gamemode>");
-        });
-
-        ArgumentEnum<GameMode> gamemode = ArgumentType.Enum("gamemode", GameMode.class)
-                .setFormat(ArgumentEnum.Format.LOWER_CASED);
+        ArgumentEnum<GameMode> gamemode = ArgumentType.Enum("gamemode", GameMode.class).setFormat(ArgumentEnum.Format.LOWER_CASED);
 
         addSyntax(this::setGamemode, gamemode);
-        addSyntax(this::setGamemode, gamemode, Entity("target").onlyPlayers(true).singleEntity(true));
-
+        addSyntax(this::setGamemode, gamemode, Entity("player").onlyPlayers(true).singleEntity(true));
     }
 
     private void setGamemode(CommandSender sender, CommandContext context) {
-        if (context.get("target") == null) {
+        if (context.get("player") == null) {
             if (sender instanceof Player player) {
                 player.setGameMode(GameMode.valueOf(context.get("gamemode").toString()));
                 sender.sendMessage(context.get("gamemode").toString());
                 return;
             }
         }
-        final EntityFinder finder = context.get("target");
+        final EntityFinder finder = context.get("player");
         final Player player = finder.findFirstPlayer(sender);
 
         if (player != null) {
             player.setGameMode(GameMode.valueOf(context.get("gamemode").toString()));
             sender.sendMessage(context.get("gamemode").toString());
         }
+        else sender.sendMessage(Component.text("Player not found !"));
     }
 
 }
