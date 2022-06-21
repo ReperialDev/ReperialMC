@@ -3,11 +3,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
-compileJava {
-    targetCompatibility = JavaVersion.VERSION_17
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
 group 'com.reperial'
 version '1.0-SNAPSHOT'
 
@@ -19,6 +14,7 @@ repositories {
 
 dependencies {
     implementation "com.github.Minestom:Minestom:${minestom_version}"
+    implementation "net.kyori:adventure-text-minimessage:4.11.0"
 }
 
 shadowJar {
@@ -26,7 +22,6 @@ shadowJar {
         attributes 'Main-Class': 'com.reperial.reperialmc.Server'
     }
     archiveBaseName.set("ReperialMC")
-    archiveClassifier.set("")
     archiveVersion.set(project.version.toString())
     mergeServiceFiles()
 }
