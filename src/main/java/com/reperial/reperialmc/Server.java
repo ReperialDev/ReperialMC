@@ -15,12 +15,13 @@ import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.permission.Permission;
 import net.minestom.server.world.Difficulty;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Server {
 
-    private static final Set<RePermission> permissions = new HashSet<>();
+    private static final Set<Permission> permissions = new HashSet<>();
 
     public static void main(String[] args) {
 
@@ -47,6 +48,12 @@ public class Server {
         server.start("0.0.0.0", 25565);
     }
 
-    public static Set<RePermission> getPermissions() { return permissions; }
+    public static Set<Permission> getPermissions() { return Collections.unmodifiableSet(permissions); }
+
+    public static Permission registerPermission(String permissionName) {
+        Permission permission = new Permission(permissionName);
+        permissions.add(permission);
+        return permission;
+    }
 
 }
