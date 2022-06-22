@@ -1,7 +1,9 @@
 package com.reperial.reperialmc.commands.admin;
 
+import com.reperial.reperialmc.Server;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.command.CommandSender;
+import net.minestom.server.command.ConsoleSender;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentEnum;
@@ -16,6 +18,7 @@ public class GamemodeCommand extends Command {
     public GamemodeCommand() {
         super("gamemode");
 
+        setCondition((sender, commandString) -> sender instanceof ConsoleSender || sender.hasPermission(Server.registerPermission("reperial.command.gamemode")));
         setDefaultExecutor((sender, context) -> sender.sendMessage("Usage : /gamemode <gamemode>"));
 
         ArgumentEnum<GameMode> gamemode = ArgumentType.Enum("gamemode", GameMode.class).setFormat(ArgumentEnum.Format.LOWER_CASED);
