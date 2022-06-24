@@ -99,7 +99,7 @@ public class PermissionCommand extends Command {
             addInventoryCondition((holder, slot, clickType, result) -> {
                 if (slot == -999 ||getItemStack(slot).isAir()) return;
                 result.setCancel(true);
-                final String permissionName = PlainTextComponentSerializer.plainText().serialize(getItemStack(slot).getLore().get(0));
+                final String permissionName = PlainTextComponentSerializer.plainText().serialize(getItemStack(slot).getDisplayName());
                 if (!holder.hasPermission(permissionName)) {
                     holder.addPermission(new Permission(permissionName));
                     setItemStack(slot, getItemStack(slot).withMaterial(Material.LIME_CONCRETE).withDisplayName(getItemStack(slot).getDisplayName().color(NamedTextColor.GREEN)));
