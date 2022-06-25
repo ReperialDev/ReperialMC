@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.coordinate.Pos;
@@ -54,9 +55,11 @@ public class Server {
             player.setRespawnPoint(new Pos(0, 66, 0));
             player.setGameMode(GameMode.ADVENTURE);
             player.setTag(Tag.Integer("colorchat"), NamedTextColor.WHITE.value());
+            player.setTag(Tag.String("prefix"), "");
         });
         globalEventHandler.addListener(PlayerChatEvent.class, event -> event.setChatFormat((e) ->
-            Component.text(event.getEntity().getUsername()).append(Component.text(": ")
+            LegacyComponentSerializer.legacy('&').deserialize(e.getPlayer().getTag(Tag.String("prefix"))).append(Component.text(" "))
+                    .append(Component.text(event.getEntity().getUsername()).append(Component.text(": "))
                     .append(Component.text(event.getMessage(), Style.empty().color(TextColor.color(e.getPlayer().getTag(Tag.Integer("colorchat")))))))));
         server.start("0.0.0.0", 25565);
     }
