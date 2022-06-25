@@ -68,11 +68,10 @@ public class PermissionCommand extends Command {
         }, Literal("remove"), player, pemissionName);
 
         addSyntax((sender, context) -> sender.sendMessage(
-                mm.deserialize("<yellow>---------[</yellow> Permission Help <yellow>]----------------</yellow>").append(Component.newline())
-                        .append(Component.newline()).append(mm.deserialize("<yellow>/Permission show</yellow> <player>"))
-                        .append(Component.newline()).append(mm.deserialize("<yellow>/Permission add</yellow> <player> <permission>"))
-                        .append(Component.newline()).append(mm.deserialize("<yellow>/Permission remove</yellow> <player> <permission>"))
-                        .append(Component.newline())), Literal("help"));
+               mm.deserialize("<yellow>---------[</yellow> Permission Help <yellow>]----------------<newline>" +
+                        "<yellow>/Permission show</yellow> \\<player><newline>" +
+                        "<yellow>/Permission add</yellow> \\<player><newline>" +
+                        "<yellow>/Permission remove</yellow> \\<player><newline>")), Literal("help"));
     }
 
     private static final class PermissionInventory extends Inventory {
