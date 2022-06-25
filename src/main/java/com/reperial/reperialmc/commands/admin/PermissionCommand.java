@@ -42,6 +42,8 @@ public class PermissionCommand extends Command {
             else sender.sendMessage(Component.text("Player not found !"));
 
         }, Literal("show"), player);
+        
+         addConditionalSyntax(Conditions::playerOnly,(sender, context) -> {((Player) sender).openInventory(new PermissionInventory((Player) sender));}, Literal("show"));
 
         addSyntax((sender, context) -> {
             final EntityFinder finder = context.get("player");
@@ -66,11 +68,10 @@ public class PermissionCommand extends Command {
         }, Literal("remove"), player, pemissionName);
 
         addSyntax((sender, context) -> sender.sendMessage(
-                mm.deserialize("<yellow>---------[</yellow> Permission Help <yellow>]----------------</yellow>").append(Component.newline())
-                        .append(Component.newline()).append(mm.deserialize("<yellow>/Permission show</yellow> <player>"))
-                        .append(Component.newline()).append(mm.deserialize("<yellow>/Permission add</yellow> <player> <permission>"))
-                        .append(Component.newline()).append(mm.deserialize("<yellow>/Permission remove</yellow> <player> <permission>"))
-                        .append(Component.newline())), Literal("help"));
+               mm.deserialize("<yellow>---------[</yellow> Permission Help <yellow>]----------------<newline>" +
+                        "<yellow>/Permission show</yellow> \\<player><newline>" +
+                        "<yellow>/Permission add</yellow> \\<player><newline>" +
+                        "<yellow>/Permission remove</yellow> \\<player><newline>")), Literal("help"));
     }
 
     private static final class PermissionInventory extends Inventory {
@@ -99,7 +100,7 @@ public class PermissionCommand extends Command {
             addInventoryCondition((holder, slot, clickType, result) -> {
                 if (slot == -999 ||getItemStack(slot).isAir()) return;
                 result.setCancel(true);
-                final String permissionName = PlainTextComponentSerializer.plainText().serialize(getItemStack(slot).getLore().get(0));
+                final String permissionName = PlainTextComponentSerializer.plainText().serialize(getItemStack(slot).getDisplayName());
                 if (!holder.hasPermission(permissionName)) {
                     holder.addPermission(new Permission(permissionName));
                     setItemStack(slot, getItemStack(slot).withMaterial(Material.LIME_CONCRETE).withDisplayName(getItemStack(slot).getDisplayName().color(NamedTextColor.GREEN)));
