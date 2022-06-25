@@ -42,6 +42,8 @@ public class PermissionCommand extends Command {
             else sender.sendMessage(Component.text("Player not found !"));
 
         }, Literal("show"), player);
+        
+         addConditionalSyntax(Conditions::playerOnly,(sender, context) -> {((Player) sender).openInventory(new PermissionInventory((Player) sender));}, Literal("show"));
 
         addSyntax((sender, context) -> {
             final EntityFinder finder = context.get("player");
